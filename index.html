@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sangeet</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .gallery img {
+      max-width: 300px;
+      height: auto;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    .modal-content {
+      margin: 15% auto;
+      display: block;
+      max-width: 80%;
+    }
+    .close, .prev, .next {
+      position: absolute;
+      top: 50%;
+      color: #fff;
+      font-size: 35px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+    }
+    .close {
+      top: 10px;
+      right: 25px;
+    }
+    .prev {
+      left: 10px;
+    }
+    .next {
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Sangeet Dhruvin bhabhi</h1>
+  <div class="gallery" id="gallery"></div>
+
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <span class="prev">&#10094;</span>
+    <span class="next">&#10095;</span>
+    <img class="modal-content" id="img01">
+  </div>
+
+  <script>
+    // Function to dynamically load images
+    function loadImages() {
+      const gallery = document.getElementById('gallery');
+      const imagesFolder = './';  // Folder where your images are located
+      
+      // A list of image file names in the folder
+      const imageFiles =["DSC03882.JPG","DSC03883.JPG","DSC03884.JPG","DSC03885.JPG","DSC03886.JPG","DSC03887.JPG","DSC03888.JPG","DSC03889.JPG","DSC03890.JPG","DSC03891.JPG","DSC03892.JPG","DSC03893.JPG","DSC03894.JPG","DSC03895.JPG","DSC03896.JPG","DSC03897.JPG","DSC03898.JPG","DSC03899.JPG","DSC03900.JPG","DSC03901.JPG","DSC03902.JPG","DSC03903.JPG","DSC03904.JPG","DSC03905.JPG","DSC03906.JPG","DSC03907.JPG","DSC03908.JPG","DSC03909.JPG","DSC03910.JPG","DSC03911.JPG","DSC03912.JPG","DSC03913.JPG","DSC03914.JPG","ZUR_3213.JPG","ZUR_3214.JPG","ZUR_3215.JPG","ZUR_3216.JPG","ZUR_3217.JPG","ZUR_3218.JPG","ZUR_3219.JPG","ZUR_3220.JPG","ZUR_3221.JPG","ZUR_3222.JPG","ZUR_3223.JPG","ZUR_3224.JPG","ZUR_3225.JPG","ZUR_3226.JPG","ZUR_3227.JPG","ZUR_3228.JPG","ZUR_3229.JPG","ZUR_3230.JPG","ZUR_3231.JPG","ZUR_3232.JPG","ZUR_3233.JPG","ZUR_3234.JPG","ZUR_3235.JPG","ZUR_3236.JPG","ZUR_3237.JPG","ZUR_3238.JPG","ZUR_3239.JPG","ZUR_3240.JPG","ZUR_3241.JPG","ZUR_3242.JPG","ZUR_3243.JPG","ZUR_3244.JPG","ZUR_3245.JPG","ZUR_3246.JPG","ZUR_3247.JPG","ZUR_3248.JPG","ZUR_3249.JPG","ZUR_3250.JPG","ZUR_3251.JPG","ZUR_3252.JPG","ZUR_3253.JPG","ZUR_3254.JPG","ZUR_3255.JPG","ZUR_3256.JPG","ZUR_3257.JPG","ZUR_3258.JPG","ZUR_3259.JPG","ZUR_3260.JPG","ZUR_3261.JPG","ZUR_3262.JPG","ZUR_3263.JPG","ZUR_3264.JPG","ZUR_3265.JPG","ZUR_3266.JPG","ZUR_3267.JPG","ZUR_3268.JPG","ZUR_3269.JPG","ZUR_3270.JPG","ZUR_3271.JPG","ZUR_3272.JPG","ZUR_3273.JPG","ZUR_3274.JPG","ZUR_3275.JPG","ZUR_3276.JPG","ZUR_3277.JPG","ZUR_3278.JPG","ZUR_3279.JPG","ZUR_3280.JPG","ZUR_3281.JPG","ZUR_3282.JPG","ZUR_3283.JPG","ZUR_3284.JPG","ZUR_3285.JPG","ZUR_3286.JPG","ZUR_3287.JPG","ZUR_3288.JPG","ZUR_3289.JPG","ZUR_3290.JPG"]
+      // Loop through each image file and create an img element for each
+      imageFiles.forEach((image, index) => {
+        const imgElement = document.createElement('img');
+        imgElement.src = imagesFolder + image;
+        imgElement.alt = image;
+        imgElement.dataset.index = index;
+        gallery.appendChild(imgElement);
+
+        // Add click event to open modal
+        imgElement.onclick = function() {
+          openModal(index);
+        }
+      });
+    }
+
+    // Function to open the modal
+    function openModal(index) {
+      const modal = document.getElementById('myModal');
+      const modalImg = document.getElementById('img01');
+      const imageFiles =["DSC03882.JPG","DSC03883.JPG","DSC03884.JPG","DSC03885.JPG","DSC03886.JPG","DSC03887.JPG","DSC03888.JPG","DSC03889.JPG","DSC03890.JPG","DSC03891.JPG","DSC03892.JPG","DSC03893.JPG","DSC03894.JPG","DSC03895.JPG","DSC03896.JPG","DSC03897.JPG","DSC03898.JPG","DSC03899.JPG","DSC03900.JPG","DSC03901.JPG","DSC03902.JPG","DSC03903.JPG","DSC03904.JPG","DSC03905.JPG","DSC03906.JPG","DSC03907.JPG","DSC03908.JPG","DSC03909.JPG","DSC03910.JPG","DSC03911.JPG","DSC03912.JPG","DSC03913.JPG","DSC03914.JPG","ZUR_3213.JPG","ZUR_3214.JPG","ZUR_3215.JPG","ZUR_3216.JPG","ZUR_3217.JPG","ZUR_3218.JPG","ZUR_3219.JPG","ZUR_3220.JPG","ZUR_3221.JPG","ZUR_3222.JPG","ZUR_3223.JPG","ZUR_3224.JPG","ZUR_3225.JPG","ZUR_3226.JPG","ZUR_3227.JPG","ZUR_3228.JPG","ZUR_3229.JPG","ZUR_3230.JPG","ZUR_3231.JPG","ZUR_3232.JPG","ZUR_3233.JPG","ZUR_3234.JPG","ZUR_3235.JPG","ZUR_3236.JPG","ZUR_3237.JPG","ZUR_3238.JPG","ZUR_3239.JPG","ZUR_3240.JPG","ZUR_3241.JPG","ZUR_3242.JPG","ZUR_3243.JPG","ZUR_3244.JPG","ZUR_3245.JPG","ZUR_3246.JPG","ZUR_3247.JPG","ZUR_3248.JPG","ZUR_3249.JPG","ZUR_3250.JPG","ZUR_3251.JPG","ZUR_3252.JPG","ZUR_3253.JPG","ZUR_3254.JPG","ZUR_3255.JPG","ZUR_3256.JPG","ZUR_3257.JPG","ZUR_3258.JPG","ZUR_3259.JPG","ZUR_3260.JPG","ZUR_3261.JPG","ZUR_3262.JPG","ZUR_3263.JPG","ZUR_3264.JPG","ZUR_3265.JPG","ZUR_3266.JPG","ZUR_3267.JPG","ZUR_3268.JPG","ZUR_3269.JPG","ZUR_3270.JPG","ZUR_3271.JPG","ZUR_3272.JPG","ZUR_3273.JPG","ZUR_3274.JPG","ZUR_3275.JPG","ZUR_3276.JPG","ZUR_3277.JPG","ZUR_3278.JPG","ZUR_3279.JPG","ZUR_3280.JPG","ZUR_3281.JPG","ZUR_3282.JPG","ZUR_3283.JPG","ZUR_3284.JPG","ZUR_3285.JPG","ZUR_3286.JPG","ZUR_3287.JPG","ZUR_3288.JPG","ZUR_3289.JPG","ZUR_3290.JPG"]
+      modal.style.display = 'block';
+      modalImg.src = './' + imageFiles[index];
+      modalImg.dataset.index = index;
+    }
+
+    // Function to close the modal
+    function closeModal() {
+      const modal = document.getElementById('myModal');
+      modal.style.display = 'none';
+    }
+
+    // Function to show the next image
+    function showNext() {
+      const modalImg = document.getElementById('img01');
+      const imageFiles = ["DSC03882.JPG","DSC03883.JPG","DSC03884.JPG","DSC03885.JPG","DSC03886.JPG","DSC03887.JPG","DSC03888.JPG","DSC03889.JPG","DSC03890.JPG","DSC03891.JPG","DSC03892.JPG","DSC03893.JPG","DSC03894.JPG","DSC03895.JPG","DSC03896.JPG","DSC03897.JPG","DSC03898.JPG","DSC03899.JPG","DSC03900.JPG","DSC03901.JPG","DSC03902.JPG","DSC03903.JPG","DSC03904.JPG","DSC03905.JPG","DSC03906.JPG","DSC03907.JPG","DSC03908.JPG","DSC03909.JPG","DSC03910.JPG","DSC03911.JPG","DSC03912.JPG","DSC03913.JPG","DSC03914.JPG","ZUR_3213.JPG","ZUR_3214.JPG","ZUR_3215.JPG","ZUR_3216.JPG","ZUR_3217.JPG","ZUR_3218.JPG","ZUR_3219.JPG","ZUR_3220.JPG","ZUR_3221.JPG","ZUR_3222.JPG","ZUR_3223.JPG","ZUR_3224.JPG","ZUR_3225.JPG","ZUR_3226.JPG","ZUR_3227.JPG","ZUR_3228.JPG","ZUR_3229.JPG","ZUR_3230.JPG","ZUR_3231.JPG","ZUR_3232.JPG","ZUR_3233.JPG","ZUR_3234.JPG","ZUR_3235.JPG","ZUR_3236.JPG","ZUR_3237.JPG","ZUR_3238.JPG","ZUR_3239.JPG","ZUR_3240.JPG","ZUR_3241.JPG","ZUR_3242.JPG","ZUR_3243.JPG","ZUR_3244.JPG","ZUR_3245.JPG","ZUR_3246.JPG","ZUR_3247.JPG","ZUR_3248.JPG","ZUR_3249.JPG","ZUR_3250.JPG","ZUR_3251.JPG","ZUR_3252.JPG","ZUR_3253.JPG","ZUR_3254.JPG","ZUR_3255.JPG","ZUR_3256.JPG","ZUR_3257.JPG","ZUR_3258.JPG","ZUR_3259.JPG","ZUR_3260.JPG","ZUR_3261.JPG","ZUR_3262.JPG","ZUR_3263.JPG","ZUR_3264.JPG","ZUR_3265.JPG","ZUR_3266.JPG","ZUR_3267.JPG","ZUR_3268.JPG","ZUR_3269.JPG","ZUR_3270.JPG","ZUR_3271.JPG","ZUR_3272.JPG","ZUR_3273.JPG","ZUR_3274.JPG","ZUR_3275.JPG","ZUR_3276.JPG","ZUR_3277.JPG","ZUR_3278.JPG","ZUR_3279.JPG","ZUR_3280.JPG","ZUR_3281.JPG","ZUR_3282.JPG","ZUR_3283.JPG","ZUR_3284.JPG","ZUR_3285.JPG","ZUR_3286.JPG","ZUR_3287.JPG","ZUR_3288.JPG","ZUR_3289.JPG","ZUR_3290.JPG"]
+      let index = parseInt(modalImg.dataset.index);
+      index = (index + 1) % imageFiles.length;
+      modalImg.src = './' + imageFiles[index];
+      modalImg.dataset.index = index;
+    }
+
+    // Function to show the previous image
+    function showPrev() {
+      const modalImg = document.getElementById('img01');
+      const imageFiles = ["DSC03882.JPG","DSC03883.JPG","DSC03884.JPG","DSC03885.JPG","DSC03886.JPG","DSC03887.JPG","DSC03888.JPG","DSC03889.JPG","DSC03890.JPG","DSC03891.JPG","DSC03892.JPG","DSC03893.JPG","DSC03894.JPG","DSC03895.JPG","DSC03896.JPG","DSC03897.JPG","DSC03898.JPG","DSC03899.JPG","DSC03900.JPG","DSC03901.JPG","DSC03902.JPG","DSC03903.JPG","DSC03904.JPG","DSC03905.JPG","DSC03906.JPG","DSC03907.JPG","DSC03908.JPG","DSC03909.JPG","DSC03910.JPG","DSC03911.JPG","DSC03912.JPG","DSC03913.JPG","DSC03914.JPG","ZUR_3213.JPG","ZUR_3214.JPG","ZUR_3215.JPG","ZUR_3216.JPG","ZUR_3217.JPG","ZUR_3218.JPG","ZUR_3219.JPG","ZUR_3220.JPG","ZUR_3221.JPG","ZUR_3222.JPG","ZUR_3223.JPG","ZUR_3224.JPG","ZUR_3225.JPG","ZUR_3226.JPG","ZUR_3227.JPG","ZUR_3228.JPG","ZUR_3229.JPG","ZUR_3230.JPG","ZUR_3231.JPG","ZUR_3232.JPG","ZUR_3233.JPG","ZUR_3234.JPG","ZUR_3235.JPG","ZUR_3236.JPG","ZUR_3237.JPG","ZUR_3238.JPG","ZUR_3239.JPG","ZUR_3240.JPG","ZUR_3241.JPG","ZUR_3242.JPG","ZUR_3243.JPG","ZUR_3244.JPG","ZUR_3245.JPG","ZUR_3246.JPG","ZUR_3247.JPG","ZUR_3248.JPG","ZUR_3249.JPG","ZUR_3250.JPG","ZUR_3251.JPG","ZUR_3252.JPG","ZUR_3253.JPG","ZUR_3254.JPG","ZUR_3255.JPG","ZUR_3256.JPG","ZUR_3257.JPG","ZUR_3258.JPG","ZUR_3259.JPG","ZUR_3260.JPG","ZUR_3261.JPG","ZUR_3262.JPG","ZUR_3263.JPG","ZUR_3264.JPG","ZUR_3265.JPG","ZUR_3266.JPG","ZUR_3267.JPG","ZUR_3268.JPG","ZUR_3269.JPG","ZUR_3270.JPG","ZUR_3271.JPG","ZUR_3272.JPG","ZUR_3273.JPG","ZUR_3274.JPG","ZUR_3275.JPG","ZUR_3276.JPG","ZUR_3277.JPG","ZUR_3278.JPG","ZUR_3279.JPG","ZUR_3280.JPG","ZUR_3281.JPG","ZUR_3282.JPG","ZUR_3283.JPG","ZUR_3284.JPG","ZUR_3285.JPG","ZUR_3286.JPG","ZUR_3287.JPG","ZUR_3288.JPG","ZUR_3289.JPG","ZUR_3290.JPG"]
+      let index = parseInt(modalImg.dataset.index);
+      index = (index - 1 + imageFiles.length) % imageFiles.length;
+      modalImg.src = './' + imageFiles[index];
+      modalImg.dataset.index = index;
+    }
+
+    // Load the images when the page loads
+    window.onload = loadImages;
+
+    // Get the modal
+    const modal = document.getElementById('myModal');
+
+    // Get the <span> elements that close the modal and navigate
+    const span = document.getElementsByClassName('close')[0];
+    const prev = document.getElementsByClassName('prev')[0];
+    const next = document.getElementsByClassName('next')[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = closeModal;
+
+    // When the user clicks on <span> (prev), show the previous image
+    prev.onclick = showPrev;
+
+    // When the user clicks on <span> (next), show the next image
+    next.onclick = showNext;
+  </script>
+
+</body>
+</html>
